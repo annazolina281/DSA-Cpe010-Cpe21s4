@@ -1,0 +1,140 @@
+
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    char data;
+    Node* next;
+    Node* prev;
+};
+
+// Function to traverse and print the doubly linked list
+void traverseList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data;
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+// Insert node at the head
+void insertAtHead(Node*& head, char data) {
+    Node* newNode = new Node();
+    newNode->data = data;
+    newNode->next = head;
+    newNode->prev = nullptr;
+
+    if (head != nullptr)
+        head->prev = newNode;
+
+    head = newNode;
+}
+
+// Insert node at the end
+void insertAtEnd(Node*& head, char data) {
+    Node* newNode = new Node();
+    newNode->data = data;
+    newNode->next = nullptr;
+
+    if (head == nullptr) {
+        newNode->prev = nullptr;
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+// Insert node after a given previous node
+void insertAfter(Node* prevNode, char data) {
+    if (prevNode == nullptr) {
+        cout << "Previous node cannot be null." << endl;
+        return;
+    }
+
+    Node* newNode = new Node();
+    newNode->data = data;
+    newNode->next = prevNode->next;
+    newNode->prev = prevNode;
+
+    if (prevNode->next != nullptr)
+        prevNode->next->prev = newNode;
+
+    prevNode->next = newNode;
+}
+
+// Delete a node by value
+void deleteNode(Node*& head, char key) {
+    Node* temp = head;
+
+    while (temp != nullptr && temp->data != key) {
+        temp = temp->next;
+    }
+
+    if (temp == nullptr) return; // Key not found
+
+    if (temp->prev != nullptr)
+        temp->prev->next = temp->next;
+    else
+        head = temp->next; // If the node to be deleted is head
+
+    if (temp->next != nullptr)
+        temp->next->prev = temp->prev;
+
+    delete temp;
+}
+
+int main() {
+    Node* head = nullptr;
+
+    // Create initial list: "101"
+    insertAtEnd(head, '1');
+    insertAtEnd(head, '0');
+    insertAtEnd(head, '1');
+
+    // Insert 'E', 'P', 'C' at the head ("CPE101")
+    insertAtHead(head, 'E');
+    insertAtHead(head, 'P');
+    insertAtHead(head, 'C');
+
+    cout << "Initial list: ";
+    traverseList(head);
+
+    // Insert 'G' at the start of the list ("GCPE101")
+    insertAtHead(head, 'G');
+    cout << "After inserting 'G' at the start: ";
+    traverseList(head);
+
+    // Insert 'E' after 'P' ("GCPEE101")
+    Node* temp = head;
+    while (temp != nullptr && temp->data != 'P') {
+        temp = temp->next;
+    }
+    insertAfter(temp, 'E');
+    cout << "After inserting 'E' after 'P': ";
+    traverseList(head);
+
+    // Delete 'C' ("GPEE101")
+    deleteNode(head, 'C');
+    cout << "After deleting 'C': ";
+    traverseList(head);
+
+    // Delete 'P' ("GEE101")
+    deleteNode(head, 'P');
+    cout << "After deleting 'P': ";
+    traverseList(head);
+
+    // Final list: "GEE101"
+    cout << "Final list: ";
+    traverseList(head);
+
+    return 0;
+}
