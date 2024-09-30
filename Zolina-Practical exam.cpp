@@ -29,7 +29,7 @@ int main() {
 
     queue<int> num = q;
     while (!num.empty()) {
-        cout << num.front() << " ";
+        cout << num.front() << " \n";
         num.pop();
     }
     cout << endl;
