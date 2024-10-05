@@ -1,4 +1,5 @@
-#include<iostream>
+#include <iostream>
+using namespace std; // Use the standard namespace
 
 class Node {
 public:
@@ -14,10 +15,10 @@ void push(int newData) {
     newNode->next = head;
 
     if (head == NULL) {
-        head = tail = newNode;
+        head = tail = newNode; // Initialize head and tail if stack is empty
     } else {
         newNode->next = head;
-        head = newNode;
+        head = newNode; // Update head to new node
     }
 }
 
@@ -25,61 +26,61 @@ int pop() {
     int tempVal;
     Node *temp;
     if (head == NULL) {
-        head = tail = NULL;
-        std::cout << "Stack Underflow." << std::endl;
+        head = tail = NULL; // Reset head and tail if stack is empty
+        cout << "Stack Underflow." << endl; // Error if empty
         return -1;
     } else {
-        temp = head;
-        tempVal = temp->data;
-        head = head->next;
-        delete(temp);
-        return tempVal;
+        temp = head; // Get current head
+        tempVal = temp->data; // Store data to return
+        head = head->next; // Move head to next node
+        delete(temp); // Free memory of old head
+        return tempVal; // Return popped value
     }
 }
 
 void Top() {
     if (head == NULL) {
-        std::cout << "Stack is Empty." << std::endl;
+        cout << "Stack is Empty." << endl; // Inform if empty
         return;
     } else {
-        std::cout << "Top of Stack: " << head->data << std::endl;
+        cout << "Top of Stack: " << head->data << endl; // Show top item
     }
 }
 
-// New function to display the elements in the stack
+// Function to display all elements in the stack
 void Display() {
     if (head == NULL) {
-        std::cout << "Stack is Empty." << std::endl;
+        cout << "Stack is Empty." << endl; // Inform if empty
         return;
     }
     
-    Node *current = head;
-    std::cout << "Stack Elements: ";
+    Node *current = head; // Start from head
+    cout << "Stack Elements: ";
     while (current != NULL) {
-        std::cout << current->data << " ";
-        current = current->next;
+        cout << current->data << " "; // Print each element
+        current = current->next; // Move to next node
     }
-    std::cout << std::endl;
+    cout << endl; // New line after displaying all elements
 }
 
 int main() {
     push(1);
-    std::cout << "After the first PUSH, top of stack is: ";
+    cout << "After the first PUSH, top of stack is: ";
     Top();
     Display(); // Call to display the elements
 
     push(5);
-    std::cout << "After the second PUSH, top of stack is: ";
+    cout << "After the second PUSH, top of stack is: ";
     Top();
     Display(); // Call to display the elements
 
     pop();
-    std::cout << "After the first POP operation, top of stack is: ";
+    cout << "After the first POP operation, top of stack is: ";
     Top();
     Display(); // Call to display the elements
 
     pop();
-    std::cout << "After the second POP operation, top of stack is: ";
+    cout << "After the second POP operation, top of stack is: ";
     Top();
     Display(); // Call to display the elements
 
