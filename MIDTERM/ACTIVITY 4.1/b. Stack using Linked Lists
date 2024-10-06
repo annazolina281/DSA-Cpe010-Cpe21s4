@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+
+struct Node {
+    char data;
+    Node *next;
+};
+
+class LinkedListStack {
+    Node *top;
+
+public:
+    LinkedListStack() : top(nullptr) {}
+
+    void push(char c) { top = new Node{c, top}; } // Push new node to the stack
+
+    char pop() {
+        if (!top) return '\0'; // If stack is empty, return '\0'
+        char poppedValue = top->data;
+        Node *temp = top;
+        top = top->next;
+        delete temp; // Free memory
+        return poppedValue;
+    }
+
+    bool isEmpty() { return top == nullptr; } // Check if stack is empty
+};
+
+bool isBalancedLL(const std::string &expr) {
+    LinkedListStack stack;
+    for (char c : expr) {
+        if (c == '(' || c == '{' || c == '[') stack.push(c); // Push opening brackets
+        else if (c == ')' || c == '}' || c == ']') {
+            char topChar = stack.pop();
+            if (topChar == '\0' || (c == ')' && topChar != '(') || (c == '}' && topChar != '{') || (c == ']' && topChar != '['))
+                return false; // Unmatched or mismatched symbols
+        }
+    }
+    return stack.isEmpty(); // Return true if stack is empty
+}
+
+int main() {
+    std::string expressions[] = {"(A+B)+(C-D)", "((A+B)+(C-D)", "((A+B)+[C-D])", "((A+B]+[C-D]}"};
+    for (const auto &expr : expressions)
+        std::cout << expr << " is " << (isBalancedLL(expr) ? "Valid" : "Invalid") << std::endl;
+    return 0;
+}
