@@ -1,0 +1,43 @@
+#include <iostream>
+#include <queue>
+#include <string>
+using namespace std;
+
+void display(queue<string> q) {
+    queue<string> c = q;
+    while (!c.empty()) {
+        cout << " " << c.front();
+        c.pop();
+    }
+    cout << "\n";
+}
+
+int main() {
+    queue<string> studentQueue;
+    
+    // Push student names onto the queue
+    studentQueue.push("Maria");
+    studentQueue.push("Cristie");
+    studentQueue.push("Aguilar");
+    studentQueue.push("Enriquez");
+
+    cout << "The queue of students is: ";
+    display(studentQueue);
+    
+    cout << "studentQueue.empty() : " << studentQueue.empty() << "\n";
+    cout << "studentQueue.size() : " << studentQueue.size() << "\n";
+    cout << "studentQueue.front() : " << studentQueue.front() << "\n";
+    cout << "studentQueue.back() : " << studentQueue.back() << "\n";
+    
+    // Pop the front student
+    studentQueue.pop();
+    cout << "Queue after pop: ";
+    display(studentQueue);
+    
+    // Add a new student
+    studentQueue.push("De Leon");
+    cout << "The queue of students after adding 'De Leon': ";
+    display(studentQueue);
+
+    return 0;
+}
