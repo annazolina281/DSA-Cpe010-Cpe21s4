@@ -1,0 +1,75 @@
+#include <iostream>
+#include <string>
+
+class Job {
+public:
+    int jobID;            // Job ID
+    std::string userName; // User name
+    int pages;            // Number of pages to print
+
+    // Constructor to initialize job details
+    Job(int id, const std::string& user, int p)
+        : jobID(id), userName(user), pages(p) {}
+};
+
+class Node {
+public:
+    Job job;    // Job stored in the node
+    Node* next; // Pointer to the next node
+
+    // Constructor
+    Node(const Job& j) : job(j), next(nullptr) {}
+};
+
+class Printer {
+private:
+    Node* front; // Pointer to the front of the queue
+    Node* rear;  // Pointer to the rear of the queue
+
+public:
+    // Constructor to create an empty queue
+    Printer() : front(nullptr), rear(nullptr) {}
+
+    // Add a job to the queue
+    void addJob(int id, const std::string& user, int pages) {
+        Job newJob(id, user, pages); // Create a new job
+        Node* newNode = new Node(newJob); // Create a new node
+
+        if (!rear) { // If queue is empty
+            front = rear = newNode; // Set front and rear to new node
+        } else {
+            rear->next = newNode; // Link new node to end of the queue
+            rear = newNode;       // Update rear to new node
+        }
+        std::cout << "Added Job ID: " << id << " from " << user << std::endl;
+    }
+
+    // Process all jobs in the queue
+    void processJobs() {
+        while (front) { // While there are jobs
+            Job currentJob = front->job; // Get the job at the front
+            std::cout << "Processing Job ID: " << currentJob.jobID 
+                      << ", User: " << currentJob.userName 
+                      << ", Pages: " << currentJob.pages << std::endl;
+
+            Node* temp = front; // Temporary pointer to delete the old node
+            front = front->next; // Move front to the next job
+            delete temp; // Free memory
+        }
+        rear = nullptr; // Reset rear since queue is empty
+    }
+};
+
+int main() {
+    Printer printer; // Create printer
+
+    // Add jobs to the printer
+    printer.addJob(1, "Richard", 5);
+    printer.addJob(2, "James", 3);
+    printer.addJob(3, "Wren", 10);
+
+    // Process jobs
+    printer.processJobs();
+
+    return 0;
+}
