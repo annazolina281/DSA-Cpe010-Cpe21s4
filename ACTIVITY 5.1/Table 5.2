@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Node structure
+struct Node {
+    string data;
+    Node* next;
+};
+
+// Queue class using Linked List
+class LinkedListQueue {
+private:
+    Node* front;
+    Node* rear;
+
+public:
+    LinkedListQueue() {
+        front = rear = nullptr;
+    }
+
+    // Check if the queue is empty
+    bool isEmpty() {
+        return front == nullptr;
+    }
+
+    // Enqueue function
+    void enqueue(const string& value) {
+        Node* newNode = new Node();
+        newNode->data = value;
+        newNode->next = nullptr;
+
+        if (isEmpty()) {
+            front = rear = newNode;
+        } else {
+            rear->next = newNode;
+            rear = newNode;
+        }
+
+        cout << "Inserted: " << value << endl;
+    }
+
+    // Dequeue function
+    string dequeue() {
+        if (isEmpty()) {
+            return "Queue is empty!";
+        }
+
+        Node* temp = front;
+        string removedData = front->data;
+        front = front->next;
+
+        if (front == nullptr) {
+            rear = nullptr;
+        }
+
+        delete temp;
+        return removedData;
+    }
+
+    // Display function
+    void displayQueue() {
+        if (isEmpty()) {
+            cout << "Queue is empty!" << endl;
+            return;
+        }
+
+        Node* temp = front;
+        cout << "Queue contents: ";
+        while (temp != nullptr) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    LinkedListQueue q;
+
+    // Enqueue elements
+    q.enqueue("Am");
+    q.enqueue("Zol");
+    q.enqueue("Ann");
+
+    // Display the queue
+    q.displayQueue();
+
+    // Dequeue elements
+    cout << "Deleted: " << q.dequeue() << endl;
+    q.displayQueue();
+
+    cout << "Deleted: " << q.dequeue() << endl;
+    q.displayQueue();
+
+    return 0;
+}
