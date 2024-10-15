@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+// Binary search in an array
+int binarySearch(int arr[], int size, int key) {
+    int low = 0, high = size - 1, comparisons = 0;
+
+    while (low <= high) {
+        comparisons++;
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == key) {
+            cout << "Found " << key << " in " << comparisons << " comparisons.\n";
+            return comparisons;
+        }
+        (arr[mid] < key) ? low = mid + 1 : high = mid - 1;
+    }
+    cout << "Element " << key << " not found in " << comparisons << " comparisons.\n";
+    return comparisons;
+}
+
+int main() {
+    int sortedArr[] = {3, 5, 6, 8, 11, 12, 14, 15, 17, 18};
+    int size = sizeof(sortedArr) / sizeof(sortedArr[0]);
+    int key = 8;
+
+    binarySearch(sortedArr, size, key);
+
+    return 0;
+}
