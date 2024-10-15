@@ -1,0 +1,20 @@
+#ifndef NODES2_H
+#define NODES2_H
+
+template <typename T>
+class Node {
+public:
+    T data;        // Data stored in the node
+    Node* next;    // Pointer to the next node
+};
+
+// Function to create a new node
+template <typename T>
+Node<T>* new_node(T newData) {
+    Node<T>* newNode = new Node<T>;
+    newNode->data = newData;  
+    newNode->next = nullptr; // Initialize next pointer to null
+    return newNode;
+}
+
+#endif // NODES2_H
