@@ -1,0 +1,23 @@
+#include <iostream>
+#include "nodes.h" 
+#include "searching.h"
+
+using namespace std;
+
+int main() {
+    // Create linked list for linear search
+    Node<char>* name1 = new_node('A');
+    Node<char>* name2 = new_node('N');
+    Node<char>* name3 = new_node('N');
+    Node<char>* name4 = new_node('A');
+
+    // Link the nodes
+    name1->next = name2;
+    name2->next = name3;
+    name3->next = name4;
+    name4->next = nullptr;
+
+    // Perform linear search for 'A'
+    linearLS(name1, 'A');
+    return 0;
+}
