@@ -1,0 +1,22 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>  
+#include "nodes.h" 
+#include "searching.h"
+
+using namespace std;
+
+const int max_size = 50;
+int main() {
+    int dataset[max_size]; 
+    srand(time(0)); 
+
+    for (int i = 0; i < max_size; i++) {
+        dataset[i] = rand() % 100; 
+    }
+    int itemToSearch = 34;
+
+    linearSearch(dataset, max_size, itemToSearch);
+
+    return 0;
+}
