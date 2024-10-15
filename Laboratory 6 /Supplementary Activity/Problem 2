@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+// Function to count occurrences of key in an array
+int countOccurrencesArray(int arr[], int size, int key) {
+    int count = 0; // Initialize count to 0
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == key) {
+            count++; // Increment count if key is found
+        }
+    }
+    return count; // Return total count of occurrences
+}
+
+// Define the linked list node structure
+struct Node {
+    int data; // Data stored in the node
+    Node* next; // Pointer to the next node
+};
+
+// Function to create a new node
+Node* new_node(int newData) {
+    Node* node = new Node(); // Create a new node
+    node->data = newData; // Set the data
+    node->next = nullptr; // Initialize the next pointer to null
+    return node; // Return the newly created node
+}
+
+// Function to count occurrences of key in a linked list
+int countOccurrencesLinkedList(Node* head, int key) {
+    int count = 0; // Initialize count to 0
+    while (head != nullptr) { // Traverse the linked list
+        if (head->data == key) {
+            count++; // Increment count if key is found
+        }
+        head = head->next; // Move to the next node
+    }
+    return count; // Return total count of occurrences
+}
+
+int main() {
+    int arr[] = {15, 18, 2, 19, 18, 0, 8, 14, 19, 14}; // Given array
+    int size = sizeof(arr) / sizeof(arr[0]); // Calculate the size of the array
+    int key = 18; // Key to search for
+
+    // Count occurrences in the array
+    int arrayCount = countOccurrencesArray(arr, size, key);
+    cout << "Occurrences of " << key << " in array: " << arrayCount << endl;
+
+    // Create linked list with the same values
+    Node* head = new_node(15); // Create the first node
+    head->next = new_node(18); // Create second node
+    head->next->next = new_node(2); // Create third node
+    head->next->next->next = new_node(19); // Create fourth node
+    head->next->next->next->next = new_node(18); // Create fifth node
+    head->next->next->next->next->next = new_node(0); // Create sixth node
+    head->next->next->next->next->next->next = new_node(8); // Create seventh node
+    head->next->next->next->next->next->next->next = new_node(14); // Create eighth node
+    head->next->next->next->next->next->next->next->next = new_node(19); // Create ninth node
+    head->next->next->next->next->next->next->next->next->next = new_node(14); // Create tenth node
+
+    // Count occurrences in the linked list
+    int listCount = countOccurrencesLinkedList(head, key);
+    cout << "Occurrences of " << key << " in linked list: " << listCount << endl;
+
+    // Cleanup memory
+    Node* current = head; // Start with the head
+    while (current != nullptr) { // Traverse the linked list
+        Node* temp = current; // Store current node
+        current = current->next; // Move to the next node
+        delete temp; // Delete the current node
+    }
+
+    return 0; // Return 0 to indicate successful execution
+}
