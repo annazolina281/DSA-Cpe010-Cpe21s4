@@ -1,0 +1,59 @@
+#include <iostream>
+#include "nodes.h"
+#include "searching.h"
+
+using namespace std;
+
+int main() {
+    // Create a linked list for binary search
+    char choice = 'y'; 
+    int count = 0; 
+    int newData;
+    Node<int>* head = nullptr;
+
+    while (choice == 'y') {
+        cout << "Enter data: ";
+        cin >> newData;
+
+        Node<int>* node = new_node(newData);
+
+        if (count == 0) {
+            head = node; // First node
+        } else {
+            Node<int>* temp = head;
+            while (temp->next != nullptr) {
+                temp = temp->next; // Traverse to the end
+            }
+            temp->next = node; // Append the new node
+        }
+
+        cout << "Successfully added " << node->data << " to the list.\n";
+        count++;
+
+        cout << "Continue? (y/n): ";
+        cin >> choice;
+    }
+
+    // Display the linked list
+    cout << "Linked List: ";
+    Node<int>* currNode = head;
+    while (currNode != nullptr) {
+        cout << currNode->data << " ";
+        currNode = currNode->next;
+    }
+    cout << endl;
+
+    // Perform binary search on the linked list
+    binarySearch(head, 30); // Change the key as needed
+    binarySearch(head, 60); // Change the key as needed
+
+    // Cleanup memory
+    Node<int>* current = head;
+    while (current != nullptr) {
+        Node<int>* temp = current;
+        current = current->next;
+        delete temp; // Delete the current node
+    }
+
+    return 0;
+}
