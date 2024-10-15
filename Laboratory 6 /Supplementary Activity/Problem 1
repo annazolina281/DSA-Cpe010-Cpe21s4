@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+// Sequential search in an array
+int sequentialSearchArray(int arr[], int size, int key) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == key) {
+            return i + 1; // Return the number of comparisons
+        }
+    }
+    return size; // If not found, return size as comparisons
+}
+
+// Sequential search in a linked list
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Create a new node
+Node* new_node(int newData) {
+    Node* node = new Node();
+    node->data = newData;
+    node->next = nullptr;
+    return node;
+}
+
+int sequentialSearchLinkedList(Node* head, int key) {
+    int comparisons = 0;
+    while (head) {
+        comparisons++;
+        if (head->data == key) {
+            return comparisons; // Return number of comparisons
+        }
+        head = head->next;
+    }
+    return comparisons; // If not found
+}
+
+int main() {
+    int arr[] = {15, 18, 2, 19, 18, 0, 8, 14, 19, 14};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int key = 18;
+
+    cout << "Array comparisons: " << sequentialSearchArray(arr, size, key) << endl;
+
+    // Create linked list
+    Node* head = new_node(15);
+    head->next = new_node(18);
+    head->next->next = new_node(2);
+    head->next->next->next = new_node(19);
+    head->next->next->next->next = new_node(18);
+    head->next->next->next->next->next = new_node(0);
+    head->next->next->next->next->next->next = new_node(8);
+    head->next->next->next->next->next->next->next = new_node(14);
+    head->next->next->next->next->next->next->next->next = new_node(19);
+    head->next->next->next->next->next->next->next->next->next = new_node(14);
+
+    cout << "Linked list comparisons: " << sequentialSearchLinkedList(head, key) << endl;
+
+    return 0;
+}
