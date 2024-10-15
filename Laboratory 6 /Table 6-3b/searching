@@ -1,0 +1,46 @@
+#ifndef SEARCHING_H
+#define SEARCHING_H
+
+#include <iostream>
+
+// Function to get the middle node of the linked list
+template <typename T>
+Node<T>* getMiddle(Node<T>* head) {
+    if (head == nullptr) return nullptr;
+
+    Node<T>* slow = head;
+    Node<T>* fast = head;
+
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+
+// Binary search function in a linked list
+template <typename T>
+Node<T>* binarySearch(Node<T>* head, T key) {
+    Node<T>* start = head;
+    Node<T>* last = nullptr;
+
+    while (start != last) {
+        Node<T>* mid = getMiddle(start);
+        
+        if (mid->data == key) {
+            std::cout << "Found " << key << " in the list.\n";
+            return mid; // Return the middle node if found
+        }
+
+        if (mid->data < key) {
+            start = mid->next; // Search in the right half
+        } else {
+            last = mid; // Search in the left half
+        }
+    }
+
+    std::cout << "Element " << key << " not found in the list.\n";
+    return nullptr; // Not found
+}
+
+#endif // SEARCHING_H
