@@ -1,0 +1,23 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    const int size = 100;
+    int arr[size];
+
+    std::srand(std::time(0)); // Seed for random number generation
+    for (int i = 0; i < size; ++i) {
+        arr[i] = std::rand() % 1000 + 1; // Random values between 1 and 1000
+    }
+
+    // Display the unsorted array
+        cout << "Unsorted Array:\n";
+    for (int i = 0; i < size; ++i) {
+        cout << arr[i] << " ";
+    }
+        cout << std::endl;
+
+    return 0;
+}
