@@ -1,0 +1,92 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+const int TOTAL_VOTES = 101;    // Total number of votes
+const int CANDIDATE_COUNT = 5;   // Number of candidates
+
+// Function to populate votes with random values between 1 and CANDIDATE_COUNT
+void initializeVotes(int votes[], int size) {
+    srand(static_cast<unsigned int>(time(0))); // Seed random number generator
+    for (int i = 0; i < size; i++) {
+        votes[i] = rand() % CANDIDATE_COUNT + 1; // Generate random votes
+    }
+}
+
+// Function to display the array of votes
+void displayVotes(const int votes[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << votes[i] << " ";
+    }
+    cout << endl;
+}
+
+// Insertion sort algorithm to sort votes
+void performInsertionSort(int votes[], int size) {
+    for (int i = 1; i < size; i++) {
+        int currentVote = votes[i];
+        int j = i - 1;
+        while (j >= 0 && votes[j] > currentVote) {
+            votes[j + 1] = votes[j];
+            j--;
+        }
+        votes[j + 1] = currentVote;
+    }
+}
+
+// Function to count votes for candidates
+void tallyVotes(const int votes[], int size, int results[]) {
+    for (int i = 0; i < size; i++) {
+        results[votes[i] - 1]++;
+    }
+}
+
+// Function to find the candidate with the maximum votes
+int determineWinner(const int results[]) {
+    int highestVotes = 0, winnerIndex = 0;
+    for (int i = 0; i < CANDIDATE_COUNT; i++) {
+        if (results[i] > highestVotes) {
+            highestVotes = results[i];
+            winnerIndex = i + 1; // 1-based index
+        }
+    }
+    return winnerIndex;
+}
+
+int main() {
+    int votes[TOTAL_VOTES];
+    int results[CANDIDATE_COUNT] = {0}; // Initialize vote count array
+
+    // Generate random votes
+    initializeVotes(votes, TOTAL_VOTES);
+    
+    // Show unsorted votes
+    cout << "Unsorted Votes:\n";
+    displayVotes(votes, TOTAL_VOTES);
+
+    // Sort votes
+    performInsertionSort(votes, TOTAL_VOTES);
+    
+    // 1. Output Console Showing Sorted Array
+    cout << "\nSorted Votes:\n";
+    displayVotes(votes, TOTAL_VOTES);
+
+    // Count votes for candidates
+    tallyVotes(votes, TOTAL_VOTES, results);
+    
+    // 2. Manual Count Count
+    cout << "\nManual Count:\n";
+    for (int i = 0; i < CANDIDATE_COUNT; i++) {
+        cout << "Candidate " << (i + 1) << ": " << results[i] << " votes\n";
+    }
+
+    // 3. Result of Algorithm
+    int winner = determineWinner(results);
+    cout << "\nResult of Algorithm:\n";
+    cout << "The Winner is Candidate " << winner << "!" << endl;
+
+    return 0;
+}
+
