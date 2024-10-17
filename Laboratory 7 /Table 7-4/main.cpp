@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "insertionSort.h"  // Include the header file
+#include "insertion.h"  // Include the renamed header file
 
 using namespace std;
 
