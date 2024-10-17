@@ -1,13 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "selectionSort.h"
+#include "selection.h"  // Include the selection sort header
 
 using namespace std;
 
 #define ARRAY_SIZE 100
 
-// Generate a random array of integers
+// Function to generate a random array of integers
 void randArray(int arr[], int size) {
     srand(static_cast<unsigned>(time(0))); // Seed the random number generator
     for (int i = 0; i < size; i++) {
@@ -15,7 +15,7 @@ void randArray(int arr[], int size) {
     }
 }
 
-// Print an array of integers
+// Function to print an array of integers
 void printArray(const int arr[], int size) {
     for (int i = 0; i < size; i++) {
         cout << arr[i] << " ";
