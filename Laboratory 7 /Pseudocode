@@ -1,0 +1,71 @@
+BEGIN
+
+    CONSTANT TOTAL_VOTES = 101
+    CONSTANT CANDIDATE_COUNT = 5
+
+    FUNCTION initializeVotes(votes[])
+        SEED random number generator
+        FOR i FROM 0 TO TOTAL_VOTES - 1
+            votes[i] = RANDOM number between 1 and CANDIDATE_COUNT
+        END FOR
+    END FUNCTION
+
+    FUNCTION displayVotes(votes[])
+        FOR each vote IN votes
+            PRINT vote
+        END FOR
+        PRINT new line
+    END FUNCTION
+
+    FUNCTION insertionSort(votes[])
+        FOR i FROM 1 TO TOTAL_VOTES - 1
+            currentVote = votes[i]
+            j = i - 1
+            WHILE j >= 0 AND votes[j] > currentVote
+                votes[j + 1] = votes[j]
+                j = j - 1
+            END WHILE
+            votes[j + 1] = currentVote
+        END FOR
+    END FUNCTION
+
+    FUNCTION tallyVotes(votes[], results[])
+        FOR each vote IN votes
+            results[vote - 1] = results[vote - 1] + 1
+        END FOR
+    END FUNCTION
+
+    FUNCTION findWinner(results[])
+        maxVotes = 0
+        winnerIndex = 0
+        FOR i FROM 0 TO CANDIDATE_COUNT - 1
+            IF results[i] > maxVotes THEN
+                maxVotes = results[i]
+                winnerIndex = i + 1
+            END IF
+        END FOR
+        RETURN winnerIndex
+    END FUNCTION
+
+    FUNCTION main()
+        DECLARE votes[TOTAL_VOTES]
+        DECLARE results[CANDIDATE_COUNT] = {0}
+
+        CALL initializeVotes(votes)
+        PRINT "Unsorted Votes:"
+        CALL displayVotes(votes)
+
+        CALL insertionSort(votes)
+        PRINT "Sorted Votes:"
+        CALL displayVotes(votes)
+
+        CALL tallyVotes(votes, results)
+        PRINT "Vote Count:"
+        FOR i FROM 0 TO CANDIDATE_COUNT - 1
+            PRINT "Candidate", i + 1, ":", results[i], "votes"
+        END FOR
+
+        PRINT "The Winner is Candidate", CALL findWinner(results), "!"
+    END FUNCTION
+
+END
