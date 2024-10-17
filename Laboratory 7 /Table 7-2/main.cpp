@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "bubbleSort.h"  // Include bubble sort header
+#include "bubble.h"  // Include bubble sort header
 
 using namespace std;
 
@@ -31,7 +31,7 @@ int main() {
     cout << "Unsorted array:\n";
     printArray(arr, ARRAY_SIZE);
 
-    bubbleSort(arr, ARRAY_SIZE);  // Sort the array
+    bubble(arr, ARRAY_SIZE);  // Corrected function call to bubble
 
     cout << "Sorted array:\n";
     printArray(arr, ARRAY_SIZE);
