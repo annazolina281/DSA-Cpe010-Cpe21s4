@@ -1,5 +1,5 @@
-#ifndef INSERTIONSORT_H
-#define INSERTIONSORT_H
+#ifndef INSERTION_H
+#define INSERTION_H
 
 // Insertion sort function template
 template <typename T>
@@ -19,4 +19,4 @@ void insertionSort(T arr[], const int N) {
     }
 }
 
-#endif // INSERTIONSORT_H
+#endif // INSERTION_H
