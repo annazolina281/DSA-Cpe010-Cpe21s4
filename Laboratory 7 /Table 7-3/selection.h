@@ -1,27 +1,40 @@
-#ifndef SELECTIONSORT_H
-#define SELECTIONSORT_H
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include "selection.h"  // Include the selection sort header
 
-// Find the position of the smallest element in the unsorted portion
-template <typename T>
-int Routine_Smallest(T arr[], int start, int size) {
-    int pos = start;
-    for (int j = start + 1; j < size; j++) {
-        if (arr[j] < arr[pos]) {
-            pos = j;
-        }
-    }
-    return pos;
-}
+using namespace std;
 
-// Selection sort implementation
-template <typename T>
-void selectionSort(T arr[], const int size) {
-    for (int i = 0; i < size - 1; i++) {
-        int pos = Routine_Smallest(arr, i, size);
-        if (pos != i) {
-            std::swap(arr[i], arr[pos]); // Swap the smallest found with the current position
-        }
+#define ARRAY_SIZE 100
+
+// Function to generate a random array of integers
+void randArray(int arr[], int size) {
+    srand(static_cast<unsigned>(time(0))); // Seed the random number generator
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 1000; // Random numbers between 0 and 999
     }
 }
 
-#endif // SELECTIONSORT_H
+// Function to print an array of integers
+void printArray(const int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int arr[ARRAY_SIZE];
+
+    randArray(arr, ARRAY_SIZE); // Generate a random array
+
+    cout << "Unsorted array:\n";
+    printArray(arr, ARRAY_SIZE);
+
+    selectionSort(arr, ARRAY_SIZE); // Sort the array
+
+    cout << "Sorted array:\n";
+    printArray(arr, ARRAY_SIZE);
+
+    return 0;
+}
