@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // For std::swap
+
+// Merge function for Merge Sort
+void merge(std::vector<int>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1, n2 = right - mid;
+    std::vector<int> L(arr.begin() + left, arr.begin() + mid + 1);
+    std::vector<int> R(arr.begin() + mid + 1, arr.begin() + right + 1);
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        arr[k++] = (L[i] <= R[j]) ? L[i++] : R[j++];
+    }
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+
+// Merge Sort function
+void mergeSort(std::vector<int>& arr, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
+
+// Quick Sort function
+void quickSort(std::vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pivot = arr[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                std::swap(arr[++i], arr[j]);
+            }
+        }
+        std::swap(arr[++i], arr[high]);
+        quickSort(arr, low, i - 1);
+        quickSort(arr, i + 1, high);
+    }
+}
+
+int main() {
+    std::vector<int> arr = {4, 34, 29, 48, 53, 87, 12, 30, 44, 25, 93, 67, 43, 19, 74};
+    
+    std::vector<int> arr1 = arr; // Copy for Merge Sort
+
+    mergeSort(arr, 0, arr.size() - 1);
+    std::cout << "Merge Sort Result: ";
+    for (int num : arr) std::cout << num << " ";
+    std::cout << std::endl;
+
+    quickSort(arr1, 0, arr1.size() - 1);
+    std::cout << "Quick Sort Result: ";
+    for (int num : arr1) std::cout << num << " ";
+    std::cout << std::endl;
+
+    return 0;
+}
+
